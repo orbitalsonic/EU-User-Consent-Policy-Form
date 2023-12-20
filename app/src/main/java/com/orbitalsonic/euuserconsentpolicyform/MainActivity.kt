@@ -2,10 +2,13 @@ package com.orbitalsonic.euuserconsentpolicyform
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.orbitalsonic.euuserconsentpolicyform.callbacks.ConsentCallback
 import com.orbitalsonic.euuserconsentpolicyform.controller.ConsentController
 
 class MainActivity : AppCompatActivity() {
+
+    val ADS_TAG = "adsTestingTAG"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -15,17 +18,41 @@ class MainActivity : AppCompatActivity() {
          * and past that device id for debug
          */
 
-        ConsentController(this).initConsent("My-Device-ID-For-Debug",object:ConsentCallback{
-            override fun onReadyForInitialization() {}
-            override fun onInitializationSuccess() {}
-            override fun onInitializationError(error: String) {}
-            override fun onConsentFormAvailability(available: Boolean) {}
-            override fun onConsentFormLoadSuccess() {}
-            override fun onConsentFormLoadFailure(error: String) {}
-            override fun onRequestShowConsentForm() {}
-            override fun onConsentFormShowFailure(error: String) {}
-            override fun onConsentFormDismissed() {}
-            override fun onPolicyRequired(required: Boolean) {}
-        })
+        ConsentController(this).apply {
+            initConsent("My-Device-ID-For-Debug",object: ConsentCallback {
+                override fun onReadyForInitialization() {
+                    Log.d(ADS_TAG, "onReadyForInitialization, canRequestAds: $canRequestAds")
+                }
+                override fun onInitializationSuccess() {
+                    Log.d(ADS_TAG, "onInitializationSuccess, canRequestAds: $canRequestAds")
+                }
+                override fun onInitializationError(error: String) {
+                    Log.d(ADS_TAG, "onInitializationError, canRequestAds: $canRequestAds")
+                }
+                override fun onConsentFormAvailability(available: Boolean) {
+                    Log.d(ADS_TAG, "onConsentFormAvailability, canRequestAds: $canRequestAds")
+                }
+                override fun onConsentFormLoadSuccess() {
+                    Log.d(ADS_TAG, "onConsentFormLoadSuccess, canRequestAds: $canRequestAds")
+                }
+                override fun onConsentFormLoadFailure(error: String) {
+                    Log.d(ADS_TAG, "onConsentFormLoadFailure, canRequestAds: $canRequestAds")
+                }
+                override fun onRequestShowConsentForm() {
+                    Log.d(ADS_TAG, "onRequestShowConsentForm, canRequestAds: $canRequestAds")
+                }
+                override fun onConsentFormShowFailure(error: String) {
+                    Log.d(ADS_TAG, "onConsentFormShowFailure, canRequestAds: $canRequestAds")
+                }
+                override fun onConsentFormDismissed() {
+                    Log.d(ADS_TAG, "onConsentFormDismissed, canRequestAds: $canRequestAds")
+                }
+                override fun onPolicyRequired(required: Boolean) {
+                    Log.d(ADS_TAG, "onPolicyRequired, canRequestAds: $canRequestAds")
+                }
+            })
+        }
+
+
     }
 }
