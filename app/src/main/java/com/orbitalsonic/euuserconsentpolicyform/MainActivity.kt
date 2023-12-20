@@ -10,6 +10,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        /**
+         * Search "addTestDeviceHashedId" in logcat after running the application
+         * and past that device id for debug
+         */
+
         ConsentController(this).initConsent("My-Device-ID-For-Debug",object:ConsentCallback{
             override fun onReadyForInitialization() {}
             override fun onInitializationSuccess() {}
