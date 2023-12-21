@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
             UserMessagingPlatform.showPrivacyOptionsForm(this) { formError ->
                 formError?.let {
                     Log.d(ADS_TAG, "showPrivacyOptionsForm, ${formError.message}")
-                    Toast.makeText(this, "Oh no something happened, Try again", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Operation failed, Try later", Toast.LENGTH_SHORT).show()
                 }
             }
         }
