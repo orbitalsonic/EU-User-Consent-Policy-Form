@@ -1,5 +1,8 @@
 package com.orbitalsonic.euuserconsentpolicyform.callbacks
 
+import com.orbitalsonic.euuserconsentpolicyform.enums.CMPStatus
+
+
 interface ConsentCallback {
     fun onReadyForInitialization()
     fun onInitializationSuccess()
@@ -10,5 +13,6 @@ interface ConsentCallback {
     fun onRequestShowConsentForm()
     fun onConsentFormShowFailure(error: String)
     fun onConsentFormDismissed()
-    fun onPolicyRequired(required: Boolean)
+    fun onConsentStatus(status: CMPStatus)
+    fun onPolicyStatus(status:CMPStatus)
 }

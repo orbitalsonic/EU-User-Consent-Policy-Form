@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import com.orbitalsonic.euuserconsentpolicyform.callbacks.ConsentCallback
 import com.orbitalsonic.euuserconsentpolicyform.controller.ConsentController
+import com.orbitalsonic.euuserconsentpolicyform.enums.CMPStatus
 
 class MainActivity : AppCompatActivity() {
 
@@ -47,12 +48,44 @@ class MainActivity : AppCompatActivity() {
                 override fun onConsentFormDismissed() {
                     Log.d(ADS_TAG, "onConsentFormDismissed, canRequestAds: $canRequestAds")
                 }
-                override fun onPolicyRequired(required: Boolean) {
-                    Log.d(ADS_TAG, "onPolicyRequired, canRequestAds: $canRequestAds")
+
+                override fun onConsentStatus(status: CMPStatus) {
+                    Log.d(ADS_TAG, "onConsentStatus: $status, canRequestAds: $canRequestAds")
+                    when(status){
+                        CMPStatus.REQUIRED -> {
+                            // Do Your Work Here
+                        }
+                        CMPStatus.NOT_REQUIRED -> {
+                            // Do Your Work Here
+                        }
+                        CMPStatus.OBTAINED -> {
+                            // Do Your Work Here
+                        }
+                        CMPStatus.UNKNOWN -> {
+                            // Do Your Work Here
+                        }
+                    }
+
+                }
+
+                override fun onPolicyStatus(status: CMPStatus) {
+                    Log.d(ADS_TAG, "onPolicyStatus: $status, canRequestAds: $canRequestAds")
+                    when(status){
+                        CMPStatus.REQUIRED -> {
+                            // Do Your Work Here
+                        }
+                        CMPStatus.NOT_REQUIRED -> {
+                            // Do Your Work Here
+                        }
+                        CMPStatus.UNKNOWN -> {
+                            // Do Your Work Here
+                        }
+                        else -> {
+                            // Do Your Work Here
+                        }
+                    }
                 }
             })
         }
-
-
     }
 }
