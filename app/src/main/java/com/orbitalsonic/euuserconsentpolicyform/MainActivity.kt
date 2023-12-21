@@ -3,16 +3,33 @@ package com.orbitalsonic.euuserconsentpolicyform
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.Toast
+import com.google.android.ump.UserMessagingPlatform
 import com.orbitalsonic.euuserconsentpolicyform.callbacks.ConsentCallback
 import com.orbitalsonic.euuserconsentpolicyform.controller.ConsentController
 import com.orbitalsonic.euuserconsentpolicyform.enums.CMPStatus
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var btnPrivacyPolicy:Button
+
     val ADS_TAG = "adsTestingTAG"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        btnPrivacyPolicy = findViewById(R.id.btn_privacy_policy)
+
+        btnPrivacyPolicy.setOnClickListener {
+            UserMessagingPlatform.showPrivacyOptionsForm(this) { formError ->
+                formError?.let {
+                    Log.d(ADS_TAG, "showPrivacyOptionsForm, ${formError.message}")
+                    Toast.makeText(this, "Oh no something happened, Try again", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 
         /**
          * Search "addTestDeviceHashedId" in logcat after running the application
@@ -72,20 +89,25 @@ class MainActivity : AppCompatActivity() {
                     Log.d(ADS_TAG, "onPolicyStatus: $status, canRequestAds: $canRequestAds")
                     when(status){
                         CMPStatus.REQUIRED -> {
-                            // Do Your Work Here
+                            // Show Consent privacy policy option in setting or
+                            // where you want to show privacy policy
+                            try {
+                                btnPrivacyPolicy.visibility = View.VISIBLE
+                            }catch (ignore:Exception){}
                         }
                         CMPStatus.NOT_REQUIRED -> {
-                            // Do Your Work Here
+                            // no need to show or visible Consent privacy policy
                         }
                         CMPStatus.UNKNOWN -> {
-                            // Do Your Work Here
+                            // no need to show or visible Consent privacy policy
                         }
                         else -> {
-                            // Do Your Work Here
+                            // no need to show or visible Consent privacy policy
                         }
                     }
                 }
             })
         }
+
     }
 }
